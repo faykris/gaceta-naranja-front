@@ -1,1 +1,42 @@
 // app global css in SCSS form
+.body--dark {
+  background-color: $dark-page;
+  color: $light;
+  p {
+    color: $light;
+  }
+  .ck-editor__editable {
+    background-color: $dark;
+    p {
+      color: $light;
+    }
+  }
+  .ck .ck-toolbar__items {
+    background-color: $dark;
+    button {
+      color: $light;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}
+
+.body--light {
+  background-color: $light-page;
+  color: #121212;
+  p {
+    color: $dark;
+  }
+  .ck-editor__editable {
+    background-color: $light;
+    p {
+      color: $dark;
+    }
+  }
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $primary;
+}

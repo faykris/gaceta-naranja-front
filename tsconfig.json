@@ -1,3 +1,17 @@
 {
-  "extends": "./.quasar/tsconfig.json"
+  "extends": "./.quasar/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": false,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "skipLibCheck": false,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["quasar"],
+    "strictNullChecks": false,
+    "exactOptionalPropertyTypes": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", ".quasar/**/*.ts"]
 }

@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar :class="isDark ? 'toolbar-dark': 'toolbar-light'">
         <q-btn
           flat
           dense
@@ -11,11 +11,18 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
+        <q-toolbar-title class="toolbar-title">
+          La Gaceta
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <div>
+          <!-- Quasar v{{ $q.version }} -->
+          <q-toggle
+            v-model="isDark"
+            :checked-icon="isDark ? 'dark_mode' : 'light_mode'"
+            :unchecked-icon="isDark ? 'dark_mode' : 'light_mode'"
+          />
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -28,7 +35,7 @@
         <q-item-label
           header
         >
-          Essential Links
+          Menú
         </q-item-label>
 
         <EssentialLink
@@ -46,57 +53,115 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { Dark, is } from 'quasar';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { onMounted } from 'vue';
 
 const linksList: EssentialLinkProps[] = [
+
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Inicio',
+    caption: 'Volver a la página principal',
+    icon: 'home',
+    link: '/'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
+    title: 'Noticias',
+    caption: 'Artículos y más',
+    icon: 'public',
+    submenu: [
+      {
+        title: 'Política',
+        caption: '',
+        icon: '',
+        link: '/test-editor'
+      },
+      {
+        title: 'Opinión',
+        caption: '',
+        icon: '',
+        link: 'https://github.com/quasarframework'
+      },
+      {
+        title: 'Memes',
+        caption: '',
+        icon: '',
+        link: '/test-editor'
+      },
+    ],
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
+    title: 'Quienes somos',
+    caption: 'Conozca más de este medio',
     icon: 'chat',
     link: 'https://chat.quasar.dev'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
+    title: 'Editor',
+    caption: 'Administra tus artículos',
+    icon: 'edit_document',
+    link: 'https://quasar.dev',
+    submenu: [
+      {
+        title: 'Crear nuevo artículo',
+        caption: '',
+        icon: '',
+        link: '/test-editor'
+      },
+      {
+        title: 'Editar artículo existente',
+        caption: '',
+        icon: '',
+        link: 'https://github.com/quasarframework'
+      },
+    ],
+  },
+  {
+    title: 'Contáctenos',
+    caption: '',
     icon: 'record_voice_over',
     link: 'https://forum.quasar.dev'
   },
   {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
+    title: 'Donaciones',
+    caption: '',
+    icon: 'volunteer_activism',
     link: 'https://awesome.quasar.dev'
   }
 ];
 
 const leftDrawerOpen = ref(false);
+const isDark = ref(localStorage.getItem('theme') === 'dark') // Detecta si el tema oscuro está activo
+
+onMounted(() => {
+  // Carga el modo seleccionado previamente
+  Dark.set(isDark.value)
+})
+  // Sincroniza el tema con los cambios del interruptor
+watch(isDark, (val) => {
+  localStorage.setItem('theme', val ? 'dark' : 'light')
+  Dark.set(val)
+})
 
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
+
+<style lang="scss">
+.toolbar-dark {
+  background-color: $dark;
+  color: $light-page;
+}
+.toolbar-light {
+  background-color: $light;
+  color: $primary;
+}
+.toolbar-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+</style>
