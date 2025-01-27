@@ -997,7 +997,7 @@ const handlerCancel = (item: any) => {
 <style scoped>
 .ck-editor__editable {
   min-height: 200px;
-  padding: 2cm;
+  padding: 0 1cm;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
   width: 21cm;

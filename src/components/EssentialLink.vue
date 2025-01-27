@@ -62,16 +62,15 @@ withDefaults(defineProps<EssentialLinkProps>(), {
   link: '#',
   icon: '',
 });
-const isDark = ref(localStorage.getItem('theme') === 'dark')
+//const isDark = ref(localStorage.getItem('theme') === 'dark')
 
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
-.q-icon {
+.q-item .q-icon {
   color: $primary !important;
 }
-
 .menu-title {
   font-weight: 500;
 }

@@ -150,6 +150,7 @@ function toggleLeftDrawer () {
 </script>
 
 <style lang="scss">
+
 .toolbar-dark {
   background-color: $dark;
   color: $light-page;
